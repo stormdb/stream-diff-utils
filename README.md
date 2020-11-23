@@ -1,2 +1,2 @@
-# streaming-diff-utils
-Streaming diff utils
+# stream-diff-utils
+Stream diff utils
