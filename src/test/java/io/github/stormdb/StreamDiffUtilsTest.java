@@ -5,17 +5,18 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class StreamDiffUtilsTest {
 
     @Test
-    public void diff() throws IOException {
+    public void diffStrings() throws IOException {
         BufferedReader original = new BufferedReader(new StringReader("aaa\nbbb\nccc"));
         BufferedReader revised = new BufferedReader(new StringReader("aaa\nccc\nddd\neee"));
 
-        StreamPatch patch = new StreamPatch() {
+        Patch patch = new Patch() {
 
             @Override
             public void addInsert(String line) throws IOException {
@@ -32,5 +33,22 @@ public class StreamDiffUtilsTest {
 
         original.close();
         revised.close();
+    }
+
+    @Test
+    public void diffStreams() throws IOException, StreamException {
+        BufferedReader original = new BufferedReader(new StringReader("aaa\nbbb\nccc"));
+        BufferedReader revised = new BufferedReader(new StringReader("aaa\nccc\nddd\neee"));
+
+        PatchOutputStream<String> patch = (position, type, delta) -> System.out.println("@" + position + " " + type + ": " + delta);
+
+        StreamDiffUtils.diff(new SortedStringInputStream(original), new SortedStringInputStream(revised), patch);
+    }
+
+    @Test
+    public void test1() {
+        ArrayList<String> list = new ArrayList<>(List.of("a_9", "a_10", "a_8", "a_11"));
+        Collections.sort(list);
+        System.out.println(list);
     }
 }
