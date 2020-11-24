@@ -18,5 +18,5 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.12'
       jdkArchitectureOption: 'x64'
-      mavenOptions: '-Xmx3072m $(MAVEN_OPTS)'
+      mavenOptions: '-Xmx3072m --no-transfer-progress $(MAVEN_OPTS)'
       goals: 'package'
