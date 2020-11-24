@@ -7,10 +7,10 @@ variables:
 
 steps:
   - task: Cache@2
-      inputs:
-        key: 'maven | "$(Agent.OS)"'
-        path: $(MAVEN_CACHE_FOLDER)
-      displayName: 'Cache Maven local repo'
+    inputs:
+      key: 'maven | "$(Agent.OS)"'
+      path: $(MAVEN_CACHE_FOLDER)
+    displayName: 'Cache Maven local repo'
 
   - task: Maven@3
     inputs:
@@ -18,5 +18,5 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.12'
       jdkArchitectureOption: 'x64'
-      mavenOptions: '-Xmx3072m $(MAVEN_OPTS)'
+      mavenOptions: '-Xmx3072m --no-transfer-progress $(MAVEN_OPTS)'
       goals: 'package'
