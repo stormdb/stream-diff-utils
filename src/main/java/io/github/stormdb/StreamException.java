@@ -1,6 +1,6 @@
 package io.github.stormdb;
 
-public class StreamException extends Exception {
+public class StreamException extends RuntimeException {
 
     private static final long serialVersionUID = 1;
 
