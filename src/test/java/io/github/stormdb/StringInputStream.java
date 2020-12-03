@@ -3,16 +3,15 @@ package io.github.stormdb;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class SortedStringInputStream extends SortedInputStream<String> {
+public class StringInputStream implements InputStream<String> {
 
     private final BufferedReader reader;
 
-    public SortedStringInputStream(BufferedReader reader) {
+    public StringInputStream(BufferedReader reader) {
         this.reader = reader;
     }
 
-    @Override
-    protected String getNextElement() throws StreamException {
+    public String read() throws StreamException {
         try {
             return reader.readLine();
         } catch (IOException e) {
